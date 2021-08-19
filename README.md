@@ -88,7 +88,7 @@ the clojure mode for codemirror 6 which gives high performance editing in a brow
 - paredit mode, extensive key-bindings, etc.
 
 **Support for inspection:**
-- clj-kondo for linting
+- clj-kondo for linting, analysis and insights
 - portal for exploring the runtime environment
 - flow-storm for tracing execution
 
