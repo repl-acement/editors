@@ -111,6 +111,8 @@ editor can be updated whilst editing by editing the config / tweaking controls
 #### Fine-grained dependencies
 Improve on Maven / GIT: define minimal dependencies, for example `fn` or `ns` not whole libraries.
 
+The [carve](https://github.com/borkdude/carve) project from @borkdude has a script for this which can be integrated.
+
 #### Search 
 Make searching for dependencies, functions and other code artefacts fast and simple.
 
