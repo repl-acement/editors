@@ -24,6 +24,8 @@ The most powerful static analysis tool is closed source (Cursive). It is based o
 
 Without doubt, it has produced a wonderful experience for IJ users but it limits our ability to innovate and extend around it as a community.
 
+For example: we should all have a simple way to `find-usages`.
+
 ### Assertion 3: GUIs are a thing
 Many of the Clojure editors that we have today are still basically text buffers. Very little innovation occurs around visualising code *inside* the editors.
 
