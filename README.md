@@ -20,11 +20,13 @@ No doubt text is still needed:
 - as a medium for code serialization.
 
 ### Assertion 2: Static analysis is powerful
-The most powerful static analysis tool is closed source (Cursive). It is based on the JetBrains tools and thus locked to their world of editors which are largely limited to and around textual representations.
+One of the most powerful static analysis tool is closed source (Cursive). It is based on the JetBrains tools and thus locked to their world of editors which are largely limited to and around textual representations.
 
 Without doubt, it has produced a wonderful experience for IJ users but it limits our ability to innovate and extend around it as a community.
 
 For example: we should all have a simple way to `find-usages`.
+
+`clj-kondo` can now provide all of these features and is integrated with the Language Server Protocol (LSP). This also serves as the basis for `clojure-lsp` which should be evaluated for inclusion in the toolchain.
 
 ### Assertion 3: GUIs are a thing
 Many of the Clojure editors that we have today are still basically text buffers. Very little innovation occurs around visualising code *inside* the editors.
@@ -33,7 +35,7 @@ This is because the editors are not powerful web browsers.
 
 ### Assertion 4: Web browsers are belong to us
 Editors that are based on web browsers are known to be 
-- slow to type into / render
+- slow to type into / render CLJ forms
 - expose frameworks that are based on other languages esp Javascript / Typescript. 
 
 Not having a basis in Clojure limits our ability to innovate and apply the power of Clojure to the lowest layers of the editor technologies.
