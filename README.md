@@ -1,7 +1,7 @@
 # REPL-acement
 
 ## Goal:
-A code editor written in 100% Clojure with the program AST as a first class citizen.
+A code environment written in Clojure with the program AST as a first class citizen.
 
 ## Problems with existing editors:
 While not all of these problems apply to all editors, none of them have all of the mechanisms that would make this project unecessary.
