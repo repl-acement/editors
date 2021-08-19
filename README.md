@@ -127,6 +127,9 @@ This results in a number of possibilities:
 #### Code distribution improvements
 Once we have `fn` or `ns` dependencies and complete ASTs, we will be able to perform principled dead code elimination when producing distributions.
 
+#### Collaborative
+The ability to share editing sessions and evaluation results. The AST can be used to trigger information about conflicts between and among editors.
+
 #### Smart
 Maximal data is parsed in real-time for user feedback (eg clj-kondo, completions, fn signatures, docs, etc) with minimal user friction to access it
 
