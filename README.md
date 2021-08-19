@@ -31,14 +31,14 @@ Many of the Clojure editors that we have today are still basically text buffers.
 
 This is because the editors are not powerful web browsers.
 
-### Assertion 3: Web browsers are belong to us
+### Assertion 4: Web browsers are belong to us
 Editors that are based on web browsers are known to be 
 - slow to type into / render
 - expose frameworks that are based on other languages esp Javascript / Typescript. 
 
 Not having a basis in Clojure limits our ability to innovate and apply the power of Clojure to the lowest layers of the editor technologies.
 
-### Assertion 4: git is dumb, by design
+### Assertion 5: git is dumb, by design
 Git is great for ensuring text fidelity and necessary for interop with existing projects. But it has no understanding of language semantics, by design. 
 
 This means that developer tools for managing changes in Clojure are immediately hobbled: they must operate on text rather than meaning.
