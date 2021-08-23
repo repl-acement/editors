@@ -1,7 +1,9 @@
 # REPL-acement
 
 ## Goal:
-A code environment written in Clojure with the program AST as a first class citizen.
+A code environment written in Clojure with a persistent, durable AST as a first class citizen.
+
+The project will employ standard tools of Clojure projects in 2021: browser CLJS SPA, Clojure JVM Server, Datalog DB.
 
 ## Problems with existing editors:
 While not all of these problems apply to all editors, none of them have all of the mechanisms that would make this project unecessary.
