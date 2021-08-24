@@ -1,145 +1,81 @@
 # REPL-acement
 
 ## Goal:
-A code environment written in Clojure with a persistent, durable AST as a first class citizen.
+A code environment written in Clojure with a persistent, durable graph of the AST as a first class citizen.
 
-The project will employ standard tools of Clojure projects in 2021: browser CLJS SPA, Clojure JVM Server, Datalog DB.
+The project will employ a reasonably standard architecture of Clojure projects in 2021:
+- Browser CLJS SPA for a rich UI
+- Web sockets for high-speed async comms
+- Clojure JVM Server for heavy duty, multi-threaded processing
+- Datalog DB for long term storage
 
-## Problems with existing editors:
-While not all of these problems apply to all editors, none of them have all of the mechanisms that would make this project unecessary.
+## Inspiration
+Back in 2012, Rich Hickey used Datomic to write `codeq` which imported the Clojure git repository. On [the blog post](https://blog.datomic.com/2012/10/codeq.html), which is well worth re-reading, he asserts that:
 
-### Assertion 1: Text is a poor basis for thinking tools
-Text is a weak basis for understanding and thinking about code. Instead the semantics of the language must be the primary basis. 
+> The resulting database is highly programmable, and can serve as infrastructure for editors, IDEs, code browsing, analysis and documentation tools.
 
-We need high performance, open tools that are aware of the semantics of Clojure.
+The blog post walks through a practical, motivating example of how the database can provide a valuable semantic layer over specific repos to provide a whole program view.
 
-This means:
-- we need to obtain and maintain the AST
-- we need runtime data as functions are evaluated
+The `codeq` project was never brought to maturity and [the project WIKI](https://github.com/Datomic/codeq/wiki) explains some future work esp, importing dependencies.
 
-No doubt text is still needed:
-- for basic code editing 
-- as a medium for code serialization.
+## Novelty
+We are following the spirit of the original `codeq` project with a complete representation of the code as data in a graph.
 
-### Assertion 2: Static analysis is powerful
-One of the most powerful static analysis tool is closed source (Cursive). It is based on the JetBrains tools and thus locked to their world of editors which are largely limited to and around textual representations.
+It's not stored as text nor in files and directories. Instead, it is stored in the `Asami` graph DB.
 
-Without doubt, it has produced a wonderful experience for IJ users but it limits our ability to innovate and extend around it as a community.
+If that has you sweating, quickly go and see #Interoperability
 
-For example: we should all have a simple way to `find-usages`.
+## Benefits
 
-`clj-kondo` can now provide all of these features and is integrated with the Language Server Protocol (LSP). This also serves as the basis for `clojure-lsp` which should be evaluated for inclusion in the toolchain.
+### Fine grained code evolution
+Vars can be directly identified and tracked as they evolve. 
 
-### Assertion 3: GUIs are a thing
-Many of the Clojure editors that we have today are still basically text buffers. Very little innovation occurs around visualising code *inside* the editors.
+The speed of processing now available on laptops and servers means that we can attempt to track evolution by the keystroke rather than by an arbitrary PR unit. Integration can be continuous and continuously monitored for conflicts.
 
-This is because the editors are not powerful web browsers.
+Maybe, we finally have a form of continuous surveillance that we can all get behind.
 
-### Assertion 4: Web browsers are belong to us
-Editors that are based on web browsers are known to be 
-- slow to type into / render CLJ forms
-- expose frameworks that are based on other languages esp Javascript / Typescript. 
+### Instant refactor
+As functions are renamed, all usages are updated. No special actions or concerns.
 
-Not having a basis in Clojure limits our ability to innovate and apply the power of Clojure to the lowest layers of the editor technologies.
+### Semantic diffs
+As functions evolve, view the changes from a structured, semantic perspective rather than via line numbers.
 
-### Assertion 5: git is dumb, by design
-Git is great for ensuring text fidelity and necessary for interop with existing projects. But it has no understanding of language semantics, by design. 
+Code changes, viewed through this lens, are much simpler to evaluate.
 
-This means that developer tools for managing changes in Clojure are immediately hobbled: they must operate on text rather than meaning.
+### Whole system time scrubbers
+The whole system can be scrubbed forward or backward in time. This is impossible with existing environments - they either work on individual files, buffers or specific git repos.
 
-## Rationale for making something new:
+## REPL system 
+The system REPL evaluates `clojure.core` and the project `ns`es in the appropriate order on startup.
 
-### The jigsaw pieces are almost all on the table
-Many parts of the needed eco-system for creating an editor which is fully aware of Clojure already exist.
+Particular `ns`es or forms can evaluated instantly.
 
-They are currently written 
-- in service of a non-Clojure based editor. As such they are always somewhat compromised in what they can achieve or enable. Fortunately, projects such as orchard have wisely pulled them apart and curated a suite of non-editor specific tools. And those tools are ripe for picking.
-- in service of specific tools. Tools such as clj-kondo and portal can connect to various editors but don't have deep integration. Likewise runtime tools such as the flow-storm debugger.
+### REPL pipelines
+To enable additional tracing, analysis or other behavioural changes, the code can be passed through and transformed REPL pipelines.
 
-An early initial attempt at this (LightTable) was abandoned. It's not clear (to me at least) exactly why the project ran out of steam but the hill to climb was certainly higher back then.
+Additional tooling can be added in the UI to reduce the amount of labour needed to manage transformations.
 
-### Data is code, code is data.
-This is often quoted assertion yet we don't currently live by it, at least not in editors.
+## Interoperability
+At the edge of the system, data can be [de-]serialized between text / files for interoperability.
 
-Outside of the world of editors, the Clojure community has evolved in its thinking: data is placed at the centre of projects and this enables tooling on top of that data. This simple insight presents a range of powerful opportunities.
+This is an essential aspect to assist with adoption.
 
-An example from the Clojure core team, in 1.10 we have `prepl` et al: like a normal REPL but the results are given back as data. 
+If you listen to [Russell McQueeney](https://github.com/fazzone), and you really should, depending on how you view the world, files are serialized from graph objects in git so it may be possible to directly map this tools graph into the git representation. In this case, text would not be needed.
 
-Many other aspects of the 1.10 release emphasised data: `Throwable->map`, `ex-data` et al, `tap` and `nav`.
+## Background
 
-### The core nature of the REPL
-The fundamental basis of the editor is the dynamic nature of Clojure and its ability to REPL. 
+Further information to justify the approach is in the [background](BACKGROUND.md) document
 
-Integrating these is essential.
 
-### Oven-ready solutions
-In 2021, we can give a Clojure editor another shot. We have many ready made open source components:
 
-**Support for data:**
-- clj-rewrite to parse clojure code into data
-- asami and crux for immutable data storage
 
-**Support for dependencies:**
-- tools.deps for core dependency management
-- add-lib to make new dependencies available instantly
-- tools.deps for building CLASSPATH
-    - supplemented by REPL evaluations of any non-file based ns
 
-**Support for editing:**
-the clojure mode for codemirror 6 which gives high performance editing in a browser
-- paredit mode, extensive key-bindings, etc.
 
-**Support for inspection:**
-- clj-kondo for linting, analysis and insights
-- portal for exploring the runtime environment
-- flow-storm for tracing execution
 
-## What the new editor should be
-- Simple install, batteries included
-- Clojure and shadow-cljs, default configs out of the box
 
-### Elegant
-Adopt a stylish, modern look and feel. Nice fonts and CSS. Light and dark themes.
 
-### Data Oriented
-Code as data - local and dependent
 
-### Hackable
-Define persistence and evaluation protocols and let the imaginations open up
-editor can be updated whilst editing by editing the config / tweaking controls
 
-### Innovative
 
-#### Fine-grained dependencies
-Improve on Maven / GIT: define minimal dependencies, for example `fn` or `ns` not whole libraries.
 
-The [carve](https://github.com/borkdude/carve) project from @borkdude has a script for this which can be integrated.
-
-#### Search 
-Make searching for dependencies, functions and other code artefacts fast and simple.
-
-#### Security
-Code can be signed using private keys.
-Keys can be held on multiple devices for the same developer ID.
-- BIP 32 / 39 / 44 protocols for deterministic keys can be used for production and recovery of the crypto materials. 
-- This enables the adoption of hardware wallets and first class crypto innovations coming out of the blockchain ecosystem. 
-
-This results in a number of possibilities:
-- improved audit
-- stronger attribution / provenance
-  - within known groups
-  - of dependency sets
-
-#### Code distribution improvements
-Once we have `fn` or `ns` dependencies and complete ASTs, we will be able to perform principled dead code elimination when producing distributions.
-
-#### Collaborative
-The ability to share editing sessions and evaluation results. The AST can be used to trigger information about conflicts between and among editors.
-
-#### Smart
-Maximal data is parsed in real-time for user feedback (eg clj-kondo, completions, fn signatures, docs, etc) with minimal user friction to access it
-
-### Clojure community
-The project will engage as widely as possible
-The project will be friendly to new code in the form of patches, PRs or code submitted to a database that can be merged without the need for git.
 
