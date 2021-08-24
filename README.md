@@ -23,7 +23,7 @@ We are following the spirit of the original `codeq` project with a complete repr
 
 It's not stored as text nor in files and directories. Instead, it is stored in the `Asami` graph DB.
 
-If that has you sweating, quickly go and see #Interoperability
+If that has you sweating, quickly go and see [#Interoperability](#interoperability)
 
 ## Benefits
 
