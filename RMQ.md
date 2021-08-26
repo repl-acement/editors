@@ -5,9 +5,9 @@ EDN -> Graph DB
 AST Form -> Graph DB
 Analytic data -> Graph DB
 
-### Discrete ID per var as it installed in the DB over time... makes it simpler to diff, because form identity matters for structural diffing anway
+Discrete ID per var as it installed in the DB over time... makes it simpler to diff, because form identity matters for structural diffing anway
 
-## Goal: use the code as an information rich source of data.
+Goal: use the code as an information rich source of data.
 
 ### Will Clojure written with REPL-acement look like Clojure written with EMACS, Cursive etc?
 - Maybe not but this is okay
@@ -18,7 +18,7 @@ Analytic data -> Graph DB
 - use a server to run lots of tasks to produce information that is pertinent to the domain
 - use an immutable database for long term storage and sharing
 
-## What if there were no text in the system? Ever.
+### What if there were no text in the system? Ever.
 
 Purely text things are ruled out to maintain a structured approach: 
  - No support for extraneous white space including ',' (Whitespace is only part of the larger issue of visual presentation)   
@@ -52,11 +52,11 @@ But the editor can make it simple to comment specific parts of code and elide me
 
 By guaranteeing that nothing except some particular form changed, we can in theory be more incremental and more efficient 
 
-## Can we use the system as a runtime? 
+### Can we use the system as a runtime? 
 - Yes! 
 - Important to "self-host" or "dogfood" such a tool
 
-## Having a REPL like this as a production system will reduce the risks of REPLs as currently envisaged.
+Having a REPL like this as a production system will reduce the risks of REPLs as currently envisaged.
 - any changes to vars are durable (if you want)
 - the changes are audited
 
