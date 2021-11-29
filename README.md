@@ -21,7 +21,7 @@ The `codeq` project was never brought to maturity and [the project WIKI](https:/
 ## Novelty
 We are following the spirit of the original `codeq` project with a complete representation of the code as data in a graph.
 
-It's not stored as text nor in files and directories. Instead, it is stored in the `Asami` graph DB.
+It's not stored as text nor in files and directories. Instead, it is stored in graph DB. Options include `Asami` and `XTDB` among others.
 
 If that has you sweating, quickly go and see [#Interoperability](#interoperability)
 
