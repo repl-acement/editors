@@ -19,7 +19,7 @@ This means:
 
 No doubt text is still needed:
 - for basic code editing
-- as a medium for code serialization.
+- as a medium for code serialization (maybe).
 
 ### Assertion 2: Static analysis is powerful
 One of the most powerful static analysis tool is closed source (Cursive). It is based on the JetBrains tools and thus locked to their world of editors which are largely limited to and around textual representations.
@@ -76,8 +76,9 @@ Integrating these is essential.
 In 2021, we can give a Clojure editor another shot. We have many ready made open source components:
 
 **Support for data:**
+- spec can conform / unform to round-trip between code and data (this has been used in the implementation)
 - clj-rewrite to parse clojure code into data
-- asami and crux for immutable data storage
+- asami and xtdb for immutable data storage
 
 **Support for dependencies:**
 - tools.deps for core dependency management
