@@ -3,7 +3,7 @@
 ## Goal:
 A code environment written in Clojure with a persistent, durable AST as a first class citizen.
 
-The project will employ standard tools of Clojure projects in 2021: browser CLJS SPA, Clojure JVM Server, Datalog DB.
+The project will employ standard tools of Clojure projects in 2022: browser CLJS SPA, Clojure JVM Server, Immutable DB.
 
 ## Problems with existing editors:
 While not all of these problems apply to all editors, none of them have all of the mechanisms that would make this project unecessary.
@@ -56,7 +56,7 @@ They are currently written
 - in service of a non-Clojure based editor. As such they are always somewhat compromised in what they can achieve or enable. Fortunately, projects such as orchard have wisely pulled them apart and curated a suite of non-editor specific tools. And those tools are ripe for picking.
 - in service of specific tools. Tools such as clj-kondo and portal can connect to various editors but don't have deep integration. Likewise runtime tools such as the flow-storm debugger.
 
-An early initial attempt at this (LightTable) was abandoned. It's not clear (to me at least) exactly why the project ran out of steam but the hill to climb was certainly higher back then.
+An early initial attempt at this (LightTable) was abandoned. It's not clear (to me at least) exactly why the project ran out of steam but the hill to climb was certainly steeper and higher back then.
 
 ### Data is code, code is data.
 This is often quoted assertion yet we don't currently live by it, at least not in editors.
@@ -73,26 +73,26 @@ The fundamental basis of the editor is the dynamic nature of Clojure and its abi
 Integrating these is essential.
 
 ### Oven-ready solutions
-In 2021, we can give a Clojure editor another shot. We have many ready made open source components:
+In 2022, we can give a Clojure editor another shot. We have many ready made open source components:
 
 **Support for data:**
 - spec can conform / unform to round-trip between code and data (this has been used in the implementation)
-- clj-rewrite to parse clojure code into data
+- web-crypto to produce digests as a basis for fully recursive hashing
 - asami and xtdb for immutable data storage
 
 **Support for dependencies:**
 - tools.deps for core dependency management
 - add-lib to make new dependencies available instantly
 - tools.deps for building CLASSPATH
-    - supplemented by REPL evaluations of any non-file based ns
+  - supplemented by REPL evaluations of any non-file based ns
 
 **Support for editing:**
 the clojure mode for codemirror 6 which gives high performance editing in a browser
 - paredit mode, extensive key-bindings, etc.
 
 **Support for inspection:**
-- clj-kondo for linting, analysis and insights
 - portal for exploring the runtime environment
+- clj-kondo for linting, analysis and insights
 - flow-storm for tracing execution
 
 ## What the new editor should be
@@ -106,15 +106,14 @@ Adopt a stylish, modern look and feel. Nice fonts and CSS. Light and dark themes
 Code as data - local and dependent
 
 ### Hackable
-Define persistence and evaluation protocols and let the imaginations open up
-editor can be updated whilst editing by editing the config / tweaking controls
+- Define persistence and evaluation protocols and let the imaginations open up
+- Editor can be updated whilst editing by editing the config / tweaking controls
 
 ### Innovative
 
 #### Fine-grained dependencies
 Improve on Maven / GIT: define minimal dependencies, for example `fn` or `ns` not whole libraries.
-
-The [carve](https://github.com/borkdude/carve) project from @borkdude has a script for this which can be integrated.
+- The [carve](https://github.com/borkdude/carve) project from @borkdude has a script for this which can be integrated / inspire.
 
 #### Search
 Make searching for dependencies, functions and other code artefacts fast and simple.
@@ -128,8 +127,8 @@ Keys can be held on multiple devices for the same developer ID.
 This results in a number of possibilities:
 - improved audit
 - stronger attribution / provenance
-    - within known groups
-    - of dependency sets
+  - within known groups
+  - of dependency sets
 
 #### Code distribution improvements
 Once we have `fn` or `ns` dependencies and complete ASTs, we will be able to perform principled dead code elimination when producing distributions.
@@ -142,5 +141,5 @@ Maximal data is parsed in real-time for user feedback (eg clj-kondo, completions
 
 ### Clojure community
 The project will engage as widely as possible
-The project will be friendly to new code in the form of patches, PRs or code submitted to a database that can be merged without the need for git.
+The project will be friendly to new code in the form of patches, PRs or code submitted to a database that can be merged without the need for git!!
 
