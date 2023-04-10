@@ -21,7 +21,7 @@ The `codeq` project was never brought to maturity and [the project WIKI](https:/
 ## Novelty
 We are following the spirit of the original `codeq` project with a complete representation of the code as data in a graph.
 
-It's not stored as text nor in files and directories. Instead, it is stored in graph DB. Options include [Asami](https://github.com/threatgrid/asami) and [XTDB](https://xtdb.com/) among others.
+It's not stored as text nor in files and directories. Instead, it is stored in graph DB. Options include [Asami](https://github.com/quoll/asami) and [XTDB](https://xtdb.com/) among others.
 
 ### Identity and value
 Each named var (ns, def, defn, etc...) will be assigned an identity so that they can be tracked across time in the immutable DB. 
