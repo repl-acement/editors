@@ -3,7 +3,7 @@
 ## Goal:
 A code environment written in Clojure with a persistent, durable AST as a first class citizen.
 
-The project will employ standard tools of Clojure projects in 2022: browser CLJS SPA, Clojure JVM Server, Immutable DB.
+The project will employ standard tools of Clojure projects in 2024: ~~browser CLJS SPA~~ desktop app, Clojure JVM Server, Immutable DB.
 
 ## Problems with existing editors:
 While not all of these problems apply to all editors, none of them have all of the mechanisms that would make this project unecessary.
@@ -26,39 +26,41 @@ One of the most powerful static analysis tool is closed source (Cursive). It is 
 
 Without doubt, it has produced a wonderful experience for IJ users but it limits our ability to innovate and extend around it as a community.
 
-For example: we should all have a simple way to `find-usages`.
+For example: we should all have a trivial way to `find-usages`.
 
 `clj-kondo` can now provide all of these features and is integrated with the Language Server Protocol (LSP). This also serves as the basis for `clojure-lsp` which should be evaluated for inclusion in the toolchain.
 
 ### Assertion 3: GUIs are a thing
 Many of the Clojure editors that we have today are still basically text buffers. Very little innovation occurs around visualising code *inside* the editors.
 
-This is because the editors are not powerful web browsers.
+This is because the editors are not powerful ~~web browsers~~ desktop applications with full hardware access.
 
-### Assertion 4: Web browsers are belong to us
+### Assertion 4: Web browser based editors are not fit for purpose
 Editors that are based on web browsers are known to be
 - slow to type into / render CLJ forms
 - expose frameworks that are based on other languages esp Javascript / Typescript.
 
-Not having a basis in Clojure limits our ability to innovate and apply the power of Clojure to the lowest layers of the editor technologies.
+Not having a basis in Clojure limits our ability to innovate and apply the power of Clojure to the critical layers of the editor.
 
 ### Assertion 5: git is dumb, by design
 Git is great for ensuring text fidelity and necessary for interop with existing projects. But it has no understanding of language semantics, by design.
 
 This means that developer tools for managing changes in Clojure are immediately hobbled: they must operate on text rather than meaning.
 
+As an example, merging `ns` changes (eg various `:require` changes) from two branches almost always (in my experience at least) breaks the `ns` form and a manual fix is needed.
+
 ## Rationale for making something new:
 
 ### The jigsaw pieces are almost all on the table
 Many parts of the needed eco-system for creating an editor which is fully aware of Clojure already exist.
 
-They are currently written
-- in service of a non-Clojure based editor. As such they are always somewhat compromised in what they can achieve or enable. Fortunately, projects such as orchard have wisely pulled them apart and curated a suite of non-editor specific tools. And those tools are ripe for picking.
-- in service of specific tools. Tools such as clj-kondo and portal can connect to various editors but don't have deep integration. Likewise runtime tools such as the flow-storm debugger.
+They are currently written:
+- in service of a non-Clojure based editor. As such they are always somewhat compromised in what they can achieve or enable. Fortunately, projects such as orchard have wisely pulled them apart and curated a suite of non-editor specific tools. And those tools are, ahem, ripe for picking.
+- in service of specific tools. Tools such as clj-kondo and portal can connect to various editors but don't have deep integration. Likewise, runtime tools such as the flow-storm debugger.
 
 An early initial attempt at this (LightTable) was abandoned. It's not clear (to me at least) exactly why the project ran out of steam but the hill to climb was certainly steeper and higher back then.
 
-### Data is code, code is data.
+### Data is code, code is data - and Clojure supports that more in every release.
 This is often quoted assertion yet we don't currently live by it, at least not in editors.
 
 Outside of the world of editors, the Clojure community has evolved in its thinking: data is placed at the centre of projects and this enables tooling on top of that data. This simple insight presents a range of powerful opportunities.
@@ -73,12 +75,12 @@ The fundamental basis of the editor is the dynamic nature of Clojure and its abi
 Integrating these is essential.
 
 ### Oven-ready solutions
-In 2022, we can give a Clojure editor another shot. We have many ready made open source components:
+In 2024, maybe we can give a Clojure editor another shot. We have many ready made open source components:
 
 **Support for data:**
 - spec can conform / unform to round-trip between code and data (this has been used in the implementation)
-- web-crypto to produce digests as a basis for fully recursive hashing
-- asami and xtdb for immutable data storage
+- efficient crypto to produce digests as a basis for fully recursive hashing
+- datomic and xtdb for immutable data storage
 
 **Support for dependencies:**
 - tools.deps for core dependency management
@@ -87,8 +89,8 @@ In 2022, we can give a Clojure editor another shot. We have many ready made open
   - supplemented by REPL evaluations of any non-file based ns
 
 **Support for editing:**
-the clojure mode for codemirror 6 which gives high performance editing in a browser
-- paredit mode, extensive key-bindings, etc.
+~~Code Mirror 6~~
+- Humble UI - albeit a work in progress - is tantalisingly close to offering this possibility
 
 **Support for inspection:**
 - portal for exploring the runtime environment
@@ -97,7 +99,7 @@ the clojure mode for codemirror 6 which gives high performance editing in a brow
 
 ## What the new editor should be
 - Simple install, batteries included
-- Clojure and shadow-cljs, default configs out of the box
+- Clojure with default configs out of the box
 
 ### Elegant
 Adopt a stylish, modern look and feel. Nice fonts and CSS. Light and dark themes.
@@ -112,17 +114,17 @@ Code as data - local and dependent
 ### Innovative
 
 #### Fine-grained dependencies
-Improve on Maven / GIT: define minimal dependencies, for example `fn` or `ns` not whole libraries.
+Improve on Maven and Git dependencies: define minimal dependencies, for example `fn` or `ns`, not whole bundled libraries.
 - The [carve](https://github.com/borkdude/carve) project from @borkdude has a script for this which can be integrated / inspire.
 
 #### Search
-Make searching for dependencies, functions and other code artefacts fast and simple.
+Searching for related dependencies, functions and other code artefacts fast and simple.
 
 #### Security
 Code can be signed using private keys.
 Keys can be held on multiple devices for the same developer ID.
 - BIP 32 / 39 / 44 protocols for deterministic keys can be used for production and recovery of the crypto materials.
-- This enables the adoption of hardware wallets and first class crypto innovations coming out of the blockchain ecosystem.
+- This enables the adoption of hardware wallets and first class crypto innovations coming out of the - otherwise blighted - blockchain ecosystem.
 
 This results in a number of possibilities:
 - improved audit
